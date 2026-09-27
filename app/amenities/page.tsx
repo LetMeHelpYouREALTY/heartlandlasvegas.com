@@ -1,21 +1,37 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import RealScoutListings from '@/components/RealScoutListings';
 import PageHero from '@/components/PageHero';
-import SectionImage from '@/components/SectionImage';
+import AmenityMap from '@/components/AmenityMap';
 import {
-  AMENITY_CATEGORIES,
-  amenityMapEmbedUrl,
-  amenityMapsLink,
-  MAP_BASE_DISPLAY,
-} from '@/lib/amenities';
+  AGENT_NAME,
+  BROKERAGE_NAME,
+  EMAIL,
+  LICENSE_ID,
+  PHONE_DISPLAY,
+  PHONE_TEL_HREF,
+  SITE_URL,
+} from '@/lib/site-contact';
+import { ASSET_HEADSHOT_PATH } from '@/lib/site-assets';
 import { generateBreadcrumbSchema } from '@/lib/breadcrumbs';
 import { ogImages } from '@/lib/og';
-import { canonicalMetadata } from '@/lib/metadata';
+import { canonicalMetadata, absoluteUrl } from '@/lib/metadata';
+import {
+  AMENITY_GUIDE_SECTIONS,
+  AMENITIES_FAQS,
+  COMMUNITY_CITY,
+  COMMUNITY_NAME,
+  agentAreaServedFragment,
+  amenitiesFaqSchema,
+  communityPlaceNode,
+  verifiedPlacesItemListSchema,
+} from '@/lib/nearby-amenities-content';
+import { MAP_BASE_DISPLAY } from '@/lib/amenities';
 
 export const metadata: Metadata = {
-  title: 'Nearby Amenities Map | Homestead West Las Vegas | Restaurants, Parks, Parking',
-  description: `Explore nearby amenities near Homestead West and Centennial Hills: restaurants, parks, parking, shopping, schools, and healthcare. Interactive maps—no cost, powered by Google Maps.`,
+  title: `Nearby Amenities in ${COMMUNITY_NAME}, ${COMMUNITY_CITY} | Restaurants, Parks, Healthcare`,
+  description: `Explore verified dining, parks, golf, grocery, healthcare, and schools near ${COMMUNITY_NAME} at ${MAP_BASE_DISPLAY}. Interactive map centered on Northwest Las Vegas 89149. Buyer representation: Dr. Jan Duffy — (702) 299-6607.`,
   ...canonicalMetadata('/amenities'),
   keywords: [
     'Homestead West amenities',
@@ -23,81 +39,71 @@ export const metadata: Metadata = {
     'Northwest Las Vegas parks',
     'amenities near Homestead West',
     'Las Vegas 89149 shopping',
-    'nearby parking Las Vegas',
     'schools near Homestead West',
+    'Centennial Hills Hospital',
   ],
   openGraph: {
-    title: 'Nearby Amenities Map | Homestead West Las Vegas',
-    description: 'Restaurants, parks, parking, shopping, schools, and more near Homestead West. View on Google Maps.',
+    title: `Nearby Amenities in ${COMMUNITY_NAME}, Las Vegas`,
+    description: `Hyperlocal amenity map and buyer guide for ${COMMUNITY_NAME} — dining, recreation, healthcare, and commute context.`,
     type: 'website',
-    url: 'https://www.homesteadwestlasvegas.com/amenities',
+    url: absoluteUrl('/amenities'),
     images: ogImages('local-park-89149'),
   },
 };
 
 export default function AmenitiesPage() {
-  const baseUrl = 'https://www.homesteadwestlasvegas.com';
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: SITE_URL },
+    { name: 'Community', url: `${SITE_URL}/community` },
+    { name: 'Nearby Amenities', url: `${SITE_URL}/amenities` },
+  ]);
 
-  const jsonLd = {
+  const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Nearby Amenities Map | Homestead West Las Vegas',
-    description: 'Interactive maps showing nearby restaurants, parks, parking, shopping, schools, and healthcare near Homestead West.',
-    url: `${baseUrl}/amenities`,
-    about: {
-      '@type': 'Place',
-      name: 'Homestead West / Centennial Hills area',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '5592 Dapple Gray Rd',
-        addressLocality: 'Las Vegas',
-        addressRegion: 'NV',
-        postalCode: '89149',
-        addressCountry: 'US',
-      },
-    },
-    mainEntity: {
-      '@type': 'ItemList',
-      name: 'Nearby amenity categories',
-      numberOfItems: AMENITY_CATEGORIES.length,
-      itemListElement: AMENITY_CATEGORIES.map((cat, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: cat.label,
-        description: cat.description,
-      })),
-    },
+    name: `Nearby Amenities in ${COMMUNITY_NAME}, ${COMMUNITY_CITY}`,
+    description: `Interactive amenity map and hyperlocal guide for ${COMMUNITY_NAME} in Northwest Las Vegas.`,
+    url: absoluteUrl('/amenities'),
+    about: communityPlaceNode(),
   };
-
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: baseUrl },
-    { name: 'Community', url: `${baseUrl}/community` },
-    { name: 'Nearby Amenities', url: `${baseUrl}/amenities` },
-  ]);
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(amenitiesFaqSchema()) }} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(verifiedPlacesItemListSchema()) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(agentAreaServedFragment()) }}
       />
 
       <div className="min-h-screen bg-white">
         <PageHero
           imageId="local-park-89149"
-          title="Nearby Amenities Map"
+          title={`Nearby Amenities in ${COMMUNITY_NAME}, ${COMMUNITY_CITY}`}
           subtitle={
             <>
-              Restaurants, parks, parking, shopping, schools & more near Homestead West
+              Hyperlocal map and buyer guide for Northwest Las Vegas (89149)
               <br />
-              Centered near {MAP_BASE_DISPLAY}. Powered by Google Maps — no cost to use.
+              Centered near {MAP_BASE_DISPLAY}. Filter restaurants, parks, healthcare, schools, and more.
             </>
           }
         />
+
+        <section className="py-12 bg-white">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <p className="text-gray-700 text-lg text-center mb-8">
+              {COMMUNITY_NAME} sits at W. Ann Road and N. Fort Apache Road with quick access to US-95 and CC-215.
+              Use the interactive map to explore everyday errands, healthcare, and recreation—then read the category
+              guide below for context a map pin alone cannot provide.
+            </p>
+            <AmenityMap variant="default" />
+          </div>
+        </section>
 
         <section className="py-12 bg-gray-50" id="available-homes">
           <div className="container mx-auto px-4">
@@ -105,7 +111,7 @@ export default function AmenitiesPage() {
               Browse homes near these amenities
             </h2>
             <p className="text-center text-gray-600 mb-8 max-w-2xl mx-auto text-sm md:text-base">
-              Live MLS listings — explore inventory while you plan schools, dining, and parks.
+              Live MLS listings for {COMMUNITY_NAME} and Northwest Las Vegas.
             </p>
             <div className="max-w-7xl mx-auto">
               <RealScoutListings />
@@ -113,74 +119,77 @@ export default function AmenitiesPage() {
           </div>
         </section>
 
-        <section className="py-8 bg-white">
-          <div className="container mx-auto px-4">
-            <p className="text-center text-gray-700 max-w-2xl mx-auto">
-              Select a category below to see that type of place on the map. Each map shows results near our office and the Homestead West area. Use the links to open Google Maps, or embed these maps on your own site at no cost.
+        <section className="py-14 bg-white">
+          <div className="container mx-auto px-4 max-w-4xl prose prose-lg text-gray-700">
+            <h2 className="text-3xl font-bold text-gray-900 text-center mb-10 not-prose">
+              Living near {COMMUNITY_NAME}: amenity guide
+            </h2>
+            {AMENITY_GUIDE_SECTIONS.map((section) => (
+              <article key={section.id} id={section.id} className="mb-10 scroll-mt-24">
+                <h3 className="text-2xl font-bold text-gray-900">{section.title}</h3>
+                {section.paragraphs.map((p) => (
+                  <p key={p.slice(0, 40)}>{p}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-14 bg-gray-50">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+              Frequently asked questions
+            </h2>
+            <dl className="space-y-6">
+              {AMENITIES_FAQS.map((faq) => (
+                <div key={faq.question} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                  <dt className="text-lg font-semibold text-gray-900">{faq.question}</dt>
+                  <dd className="mt-2 text-gray-700">{faq.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section className="py-14 bg-[#1a365d] text-white">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <div className="relative w-28 h-28 mx-auto mb-6 rounded-full overflow-hidden border-4 border-yellow-400">
+              <Image
+                src={ASSET_HEADSHOT_PATH}
+                alt={`${AGENT_NAME} — ${COMMUNITY_NAME} buyer's agent`}
+                fill
+                className="object-cover object-top"
+                sizes="112px"
+              />
+            </div>
+            <h2 className="text-3xl font-bold mb-3">Work with {AGENT_NAME}</h2>
+            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+              Licensed Nevada REALTOR ({LICENSE_ID}) with {BROKERAGE_NAME}. {AGENT_NAME} represents{' '}
+              <strong>you</strong>—not the builder—at {COMMUNITY_NAME} and across Northwest Las Vegas.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4">
+              <a
+                href={PHONE_TEL_HREF}
+                className="inline-flex rounded-lg bg-yellow-400 px-6 py-3 font-bold text-[#0f2439] hover:bg-yellow-300 transition-colors"
+              >
+                Call {PHONE_DISPLAY}
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex rounded-lg border-2 border-white px-6 py-3 font-bold hover:bg-white/10 transition-colors"
+              >
+                Schedule a consultation
+              </Link>
+            </div>
+            <p className="text-sm text-blue-200">
+              <a href={`mailto:${EMAIL}`} className="underline hover:text-white">{EMAIL}</a>
+              {' · '}
+              {MAP_BASE_DISPLAY}
             </p>
           </div>
         </section>
 
-        <section className="py-10">
-          <div className="container mx-auto px-4">
-            <div className="space-y-12 max-w-5xl mx-auto">
-              {AMENITY_CATEGORIES.map((category) => (
-                <article
-                  key={category.id}
-                  id={category.id}
-                  className="scroll-mt-24 rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden"
-                >
-                  <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-                    <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                      {category.icon && <span aria-hidden>{category.icon}</span>}
-                      {category.label}
-                    </h2>
-                    <p className="text-gray-600 mt-1">{category.description}</p>
-                    <SectionImage
-                      imageId={category.imageId}
-                      heading={category.label}
-                      caption={`${category.label} near Homestead West at 5592 Dapple Gray Rd, Las Vegas NV 89149`}
-                      className="mt-4 mb-0"
-                    />
-                  </div>
-                  <div className="p-4 md:p-6">
-                    <div className="rounded-lg overflow-hidden border border-gray-200 bg-gray-100 aspect-video max-h-[400px]">
-                      <iframe
-                        src={amenityMapEmbedUrl(category.searchQuery)}
-                        width="100%"
-                        height="100%"
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title={`Map: ${category.label} near Homestead West`}
-                        className="w-full h-full min-h-[320px] block border-0"
-                      />
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-3">
-                      <a
-                        href={amenityMapsLink(category.searchQuery)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#1a365d] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#2d4a7c] transition-colors"
-                      >
-                        View on Google Maps
-                      </a>
-                      <a
-                        href={`#${category.id}`}
-                        className="text-gray-600 hover:text-[#1a365d] text-sm"
-                        aria-label={`Link to ${category.label} section`}
-                      >
-                        #
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-12 bg-gray-50">
+        <section className="py-12 bg-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Explore More</h2>
             <div className="flex flex-wrap justify-center gap-4">

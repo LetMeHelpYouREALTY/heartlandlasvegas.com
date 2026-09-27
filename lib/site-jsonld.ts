@@ -72,6 +72,12 @@ export function getSiteGraphJsonLd() {
         areaServed: [
           {
             '@type': 'Place',
+            name: 'Homestead West',
+            geo,
+            address: postalAddress,
+          },
+          {
+            '@type': 'Place',
             name: 'Centennial Hills',
             address: {
               '@type': 'PostalAddress',

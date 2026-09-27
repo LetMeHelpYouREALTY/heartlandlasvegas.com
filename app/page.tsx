@@ -6,6 +6,7 @@ import SearchWidgetScript from '@/components/SearchWidgetScript';
 import SectionImage from '@/components/SectionImage';
 import LeadForm from '@/components/LeadForm';
 import GbpActions from '@/components/GbpActions';
+import NearbyAmenitiesSection from '@/components/NearbyAmenitiesSection';
 import { LICENSE_ID, ADDRESS_LINE, PHONE_DISPLAY, PHONE_TEL_HREF } from '@/lib/site-contact';
 import { ASSET_BHHS_LOGO_PATH, ASSET_HEADSHOT_PATH } from '@/lib/site-assets';
 import { canonicalMetadata, absoluteUrl } from '@/lib/metadata';
@@ -671,6 +672,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <NearbyAmenitiesSection variant="compact" id="whats-nearby" />
 
         {/* Process — summary; full timeline on /homebuying-process */}
         <section className="py-16 bg-gray-50">

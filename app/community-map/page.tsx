@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import RealScoutListings from '@/components/RealScoutListings';
 import PageHero from '@/components/PageHero';
 import SectionImage from '@/components/SectionImage';
+import NearbyAmenitiesSection from '@/components/NearbyAmenitiesSection';
 import { generateBreadcrumbSchema } from '@/lib/breadcrumbs';
 import { ogImages } from '@/lib/og';
 import { canonicalMetadata } from '@/lib/metadata';
@@ -195,6 +196,13 @@ export default function CommunityMapPage() {
             </div>
           </div>
         </section>
+
+        <NearbyAmenitiesSection
+          variant="compact"
+          heading="Life Near Homestead West"
+          subheading="See restaurants, grocery, parks, and healthcare around the 89149 sales office before you pick a lot."
+          id="community-map-amenities"
+        />
 
         {/* Location & Neighborhood Context */}
         <section className="py-16 bg-white">

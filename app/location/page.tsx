@@ -4,6 +4,7 @@ import LocatorPlusEmbed from '@/components/LocatorPlusEmbed';
 import RealScoutListings from '@/components/RealScoutListings';
 import PageHero from '@/components/PageHero';
 import SectionImage from '@/components/SectionImage';
+import NearbyAmenitiesSection from '@/components/NearbyAmenitiesSection';
 import {
   STORE_LOCATIONS,
   formatAddress,
@@ -228,11 +229,18 @@ export default function LocationIndexPage() {
           </div>
         </section>
 
+        <NearbyAmenitiesSection
+          variant="compact"
+          heading="What's Near Our Office"
+          subheading="Plan your visit with an amenity map centered on 5592 Dapple Gray Rd."
+          id="location-amenity-map"
+        />
+
         {/* CTA */}
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4 text-center">
             <p className="text-gray-600 mb-4">
-              <a href="/amenities" className="text-[#1a365d] font-medium hover:underline">See nearby restaurants, parks, parking & more →</a>
+              <a href="/amenities" className="text-[#1a365d] font-medium hover:underline">Full Nearby Amenities guide with FAQ →</a>
             </p>
             <h2 className="text-2xl font-bold mb-4 text-gray-900">Ready to Visit or Schedule a Call?</h2>
             <p className="text-gray-700 mb-6 max-w-xl mx-auto">

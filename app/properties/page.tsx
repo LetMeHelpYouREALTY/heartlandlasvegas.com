@@ -4,6 +4,7 @@ import RealScoutAdvancedSearch from '@/components/RealScoutAdvancedSearch';
 import PageHero from '@/components/PageHero';
 import SectionImage from '@/components/SectionImage';
 import CtaBand from '@/components/CtaBand';
+import NearbyAmenitiesSection from '@/components/NearbyAmenitiesSection';
 import { generateBreadcrumbSchema } from '@/lib/breadcrumbs';
 import { ogImages } from '@/lib/og';
 import { canonicalMetadata } from '@/lib/metadata';
@@ -225,6 +226,13 @@ export default function PropertiesPage() {
             </div>
           </div>
         </section>
+
+        <NearbyAmenitiesSection
+          variant="compact"
+          heading="What's Nearby Your Future Home"
+          subheading="Explore dining, parks, schools, and healthcare near Homestead West while you shop MLS listings."
+          id="properties-amenity-map"
+        />
 
         {/* Related Pages Section */}
         <section className="py-16 bg-gray-50">
