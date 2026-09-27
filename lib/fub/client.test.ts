@@ -27,7 +27,7 @@ describe('FUB Client', () => {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
-      phone: '7025551234',
+      phone: '5105551234',
     })
 
     expect(result.id).toBe('fub-lead-123')
@@ -215,16 +215,16 @@ describe('FUB Client', () => {
       json: async () => ({
         id: 'existing-123',
         email: 'john@example.com',
-        phone: '7025559999',
+        phone: '5105559999',
       }),
     })
 
     const result = await fubClient.updateLead({
       email: 'john@example.com',
-      phone: '7025559999',
+      phone: '5105559999',
     })
 
     expect(result.id).toBe('existing-123')
-    expect(result.phone).toBe('7025559999')
+    expect(result.phone).toBe('5105559999')
   })
 })

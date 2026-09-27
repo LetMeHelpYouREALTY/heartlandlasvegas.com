@@ -6,6 +6,7 @@ import UniqueInterior from "@/components/sections/UniqueInterior";
 import ExpertQuote from "@/components/sections/ExpertQuote";
 import HeadingPhoto from "@/components/sections/HeadingPhoto";
 import LeftoverBand from "@/components/sections/LeftoverBand";
+import Link from "next/link";
 import { nap } from "@/lib/contact";
 
 export const metadata: Metadata = pageMetadata({
@@ -47,10 +48,14 @@ export default function SecurityPolicyPage() {
                   </a>
                 </li>
                 <li>
-                  <strong>Phone:</strong>{" "}
-                  <a href="tel:+17022221964" className="underline">
-                    (702) 222-1964
-                  </a>
+                  <strong>Contact:</strong>{" "}
+                  <Link href="/contact" className="underline">
+                    {nap.email}
+                  </Link>{" "}
+                  or the{" "}
+                  <Link href="/contact" className="underline">
+                    contact page
+                  </Link>
                 </li>
                 <li>
                   <strong>Response Time:</strong> Within 48 hours
@@ -227,10 +232,14 @@ export default function SecurityPolicyPage() {
                 </a>
               </p>
               <p>
-                Phone:{" "}
-                <a href="tel:+17022221964" className="text-blue-600 underline">
-                  (702) 222-1964
-                </a>
+                Contact:{" "}
+                <Link href="/contact" className="text-blue-600 underline">
+                  {nap.email}
+                </Link>{" "}
+                ·{" "}
+                <Link href="/contact" className="text-blue-600 underline">
+                  /contact
+                </Link>
               </p>
               <address className="not-italic mt-4 text-gray-700">
                 Dr. Jan Duffy — Berkshire Hathaway HomeServices Nevada

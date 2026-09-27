@@ -2,8 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, MessageCircle, X, Loader2 } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ctaPhone } from "@/lib/contact";
 
 interface Message {
   role: "user" | "assistant";
@@ -80,7 +82,7 @@ export default function AIChatWidget() {
       const errorMessage: Message = {
         role: "assistant",
         content:
-          "I'm sorry, I'm having trouble connecting right now. Please try again or call Dr. Jan Duffy at (702) 222-1964.",
+          "I'm sorry, I'm having trouble connecting right now. Please try again or call Dr. Jan Duffy via /contact.",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -191,7 +193,22 @@ export default function AIChatWidget() {
               </Button>
             </div>
             <p className="text-xs text-slate-500 mt-2 text-center">
-              Powered by AI · Call Dr. Jan: (702) 222-1964
+              Powered by AI
+              {ctaPhone ? (
+                <>
+                  {" · "}
+                  <a href={ctaPhone.href} className="underline">
+                    Call {ctaPhone.display}
+                  </a>
+                </>
+              ) : (
+                <>
+                  {" · "}
+                  <Link href="/contact" className="underline">
+                    Contact Dr. Jan
+                  </Link>
+                </>
+              )}
             </p>
           </div>
         </div>

@@ -34,7 +34,7 @@ describe('POST /api/leads/capture', () => {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@example.com',
-        phone: '7025551234',
+        phone: '5105551234',
         message: 'Interested in buying',
         source: 'website-form',
         stage: 'New Lead',
@@ -63,7 +63,7 @@ describe('POST /api/leads/capture', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         // Missing firstName, lastName, email
-        phone: '7025551234',
+        phone: '5105551234',
       }),
     })
 
@@ -82,7 +82,7 @@ describe('POST /api/leads/capture', () => {
         firstName: 'John',
         lastName: 'Doe',
         email: 'not-an-email',
-        phone: '7025551234',
+        phone: '5105551234',
       }),
     })
 

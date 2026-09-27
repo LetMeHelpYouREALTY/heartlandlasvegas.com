@@ -1,6 +1,8 @@
 // Site Configuration - HeyBerkshire.com
 // Berkshire Hathaway HomeServices Nevada Properties
 
+import { ctaPhone, nap as contactNap } from "./contact";
+
 export const siteConfig = {
   name: "HeyBerkshire",
   fullName: "Berkshire Hathaway HomeServices Nevada Properties",
@@ -19,12 +21,12 @@ export const agentInfo = {
   name: "Dr. Jan Duffy",
   title: "REALTOR®",
   license: "S.0197614.LLC",
-  phone: "(702) 222-1964",
-  phoneFormatted: "(702) 222-1964",
-  phoneTel: "tel:+17022221964",
-  officePhone: "(702) 500-1942",
-  officePhoneTel: "tel:+17025001942",
-  email: "homes@heyberkshire.com",
+  phone: ctaPhone?.display ?? null,
+  phoneFormatted: ctaPhone?.display ?? null,
+  phoneTel: ctaPhone?.href ?? null,
+  officePhone: null as string | null,
+  officePhoneTel: null as string | null,
+  email: contactNap.email,
   brokerage: "Berkshire Hathaway HomeServices Nevada Properties",
 };
 
@@ -41,8 +43,8 @@ export const officeInfo = {
     lat: 36.1941,
     lng: -115.2678,
   },
-  phone: "(702) 500-1942",
-  phoneTel: "tel:+17025001942",
+  phone: ctaPhone?.display ?? null,
+  phoneTel: ctaPhone?.href ?? null,
 };
 
 // Market Statistics (Updated January 2026)

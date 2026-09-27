@@ -6,6 +6,7 @@
  * @see https://developers.google.com/search/docs/appearance/structured-data
  */
 
+import { SITE_PHONE } from "./contact";
 import { siteConfig, agentInfo, officeInfo } from "./site-config";
 
 // ============================================================================
@@ -81,7 +82,7 @@ export const socialProfiles = {
  * Used site-wide in the root layout
  */
 export function generateRealEstateAgentSchema() {
-  return {
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     "@id": `${BASE_URL}#organization`,
@@ -95,7 +96,6 @@ export function generateRealEstateAgentSchema() {
     logo: `${BASE_URL}/images/dr-jan-duffy.jpg`,
     image: `${BASE_URL}/images/dr-jan-duffy.jpg`,
     description: siteConfig.description,
-    telephone: "+1-702-500-1942",
     email: agentInfo.email,
     priceRange: "$385K - $10M+",
     address: {
@@ -190,6 +190,12 @@ export function generateRealEstateAgentSchema() {
     ],
     slogan: "Your Berkshire Hathaway HomeServices expert in Las Vegas",
   };
+
+  if (SITE_PHONE) {
+    schema.telephone = SITE_PHONE;
+  }
+
+  return schema;
 }
 
 /**

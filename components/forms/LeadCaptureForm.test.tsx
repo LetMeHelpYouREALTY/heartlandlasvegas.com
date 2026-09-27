@@ -56,7 +56,7 @@ describe("LeadCaptureForm", () => {
     await user.type(screen.getByLabelText(/first name/i), "John");
     await user.type(screen.getByLabelText(/last name/i), "Doe");
     await user.type(screen.getByLabelText(/email/i), "john@example.com");
-    await user.type(screen.getByLabelText(/phone/i), "7025551234");
+    await user.type(screen.getByLabelText(/phone/i), "5105551234");
     await user.type(screen.getByLabelText(/message/i), "I want to buy a house");
 
     // Submit form

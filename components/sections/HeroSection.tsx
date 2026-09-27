@@ -68,7 +68,7 @@ export default function HeroSection() {
         </h1>
         <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl">
           Search live MLS listings with Dr. Jan Duffy, Berkshire Hathaway
-          HomeServices Nevada Properties. Call or text (702) 222-1964.
+          HomeServices Nevada Properties. Use the contact form or Calendly.
         </p>
 
         <div className="realscout-wrapper mb-4">
