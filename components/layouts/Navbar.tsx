@@ -1,47 +1,22 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ctaPhone, nap } from "@/lib/contact";
-import LocalTrustBar from "@/components/layouts/LocalTrustBar";
+import { nap } from "@/lib/contact";
+import { navLinks } from "@/lib/heartland-site";
+import CtaButtons from "@/components/heartland/CtaButtons";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const servicesRef = useRef<HTMLDivElement>(null);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handlePointerDown = (event: MouseEvent) => {
-      if (
-        servicesRef.current &&
-        !servicesRef.current.contains(event.target as Node)
-      ) {
-        setIsServicesOpen(false);
-      }
-    };
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsServicesOpen(false);
-        setIsMobileMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
   }, []);
 
   useEffect(() => {
@@ -51,25 +26,8 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  const mainNavLinks = [
-    { href: "/", label: "Home", external: false },
-    { href: "/listings", label: "Homes for Sale", external: false },
-    { href: "/neighborhoods", label: "Neighborhoods", external: false },
-    { href: "/about", label: "About", external: false },
-    { href: "/contact", label: "Contact", external: false },
-  ];
-
-  const serviceLinks = [
-    { href: "/buyers", label: "Home Buying" },
-    { href: "/sellers", label: "Home Selling" },
-    { href: "/luxury-homes", label: "Luxury Homes" },
-    { href: "/55-plus-communities", label: "55+ Communities" },
-    { href: "/new-construction", label: "New Construction" },
-    { href: "/investment-properties", label: "Investment Properties" },
-    { href: "/relocation", label: "Relocation" },
-    { href: "/home-valuation", label: "Home Valuation" },
-    { href: "/market-report", label: "Market Report" },
-  ];
+  const primaryLinks = navLinks.slice(0, 6);
+  const moreLinks = navLinks.slice(6);
 
   return (
     <header
@@ -78,166 +36,96 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center gap-4">
-          <Link
-            href="/"
-            className="flex flex-col min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md"
-            aria-label={`${nap.brokerage} home`}
-          >
-            <span className="text-lg md:text-xl lg:text-2xl font-bold text-slate-900 hover:text-blue-600 transition-colors leading-tight truncate">
-              Berkshire Hathaway
-              <span className="text-blue-600"> HomeServices</span>
+        <div className="flex items-center justify-between gap-4">
+          <Link href="/" className="flex flex-col min-w-0">
+            <span className="font-bold text-slate-900 text-sm sm:text-base leading-tight truncate">
+              Heartland Cottages
             </span>
-            <span className="text-xs text-slate-500 hidden sm:block">
-              Nevada Properties · Dr. Jan Duffy
+            <span className="text-xs text-slate-600 truncate">
+              Dr. Jan Duffy · {nap.license}
             </span>
           </Link>
 
           <nav
-            className="hidden lg:flex items-center space-x-5"
-            aria-label="Primary"
+            className="hidden lg:flex items-center gap-1 xl:gap-2"
+            aria-label="Main"
           >
-            {mainNavLinks.map((link) => (
+            {primaryLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-slate-700 hover:text-blue-600 font-medium transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md px-1 py-1"
+                className="text-sm font-medium text-slate-700 hover:text-blue-700 px-2 py-2 rounded-md"
               >
                 {link.label}
               </Link>
             ))}
-
-            <div className="relative" ref={servicesRef}>
+            <div className="relative">
               <button
                 type="button"
-                className="flex items-center text-slate-700 hover:text-blue-600 font-medium transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md px-2 py-1"
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setIsServicesOpen(!isServicesOpen);
-                  }
-                }}
-                aria-expanded={isServicesOpen}
-                aria-haspopup="true"
-                aria-controls="services-menu"
+                className="inline-flex items-center text-sm font-medium text-slate-700 hover:text-blue-700 px-2 py-2 rounded-md"
+                aria-expanded={isMoreOpen}
+                onClick={() => setIsMoreOpen((open) => !open)}
               >
-                Services
-                <ChevronDown className="h-4 w-4 ml-1" aria-hidden="true" />
+                More
+                <ChevronDown className="ml-1 h-4 w-4" aria-hidden="true" />
               </button>
-
-              {isServicesOpen && (
-                <div
-                  id="services-menu"
-                  className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg py-2 z-50 border border-slate-100"
-                  onMouseLeave={() => setIsServicesOpen(false)}
-                  role="menu"
-                  aria-orientation="vertical"
-                >
-                  {serviceLinks.map((link) => (
+              {isMoreOpen ? (
+                <div className="absolute right-0 mt-1 w-52 rounded-md border border-slate-200 bg-white shadow-lg py-2 z-50">
+                  {moreLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 focus-visible:outline-none focus-visible:bg-blue-50 focus-visible:text-blue-600"
-                      onClick={() => setIsServicesOpen(false)}
-                      role="menuitem"
+                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                      onClick={() => setIsMoreOpen(false)}
                     >
                       {link.label}
                     </Link>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
-
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <a href={ctaPhone.href} className="flex items-center gap-2">
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                <span className="hidden xl:inline">{ctaPhone.display}</span>
-                <span className="xl:hidden">Call</span>
-              </a>
-            </Button>
           </nav>
 
-          <div className="lg:hidden flex items-center gap-3">
-            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
-              <a
-                href={ctaPhone.href}
-                aria-label={`Call Dr. Jan Duffy at ${ctaPhone.display}`}
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-              </a>
+          <div className="hidden lg:block shrink-0">
+            <Button asChild size="sm">
+              <Link href="/contact">Contact</Link>
             </Button>
-            <button
-              type="button"
-              className="text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded-md p-2 min-h-[44px] min-w-[44px]"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-nav"
-            >
-              {isMobileMenuOpen ? (
-                <X size={24} aria-hidden="true" />
-              ) : (
-                <Menu size={24} aria-hidden="true" />
-              )}
-            </button>
           </div>
-        </div>
 
-        {isMobileMenuOpen && (
-          <nav
-            id="mobile-nav"
-            className="lg:hidden mt-4 pb-4 border-t border-slate-200 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain"
-            aria-label="Mobile"
+          <button
+            type="button"
+            className="lg:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
           >
-            <div className="flex flex-col space-y-1 pt-4">
-              {mainNavLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-colors py-3 px-3 rounded min-h-[44px]"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
+        </div>
+      </div>
 
-              <div className="border-t border-slate-200 pt-2 mt-2">
-                <span className="text-xs font-semibold text-slate-500 px-3 uppercase">
-                  Services
-                </span>
-                {serviceLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-colors py-3 px-3 rounded block min-h-[44px]"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-
-              <div className="pt-4">
-                <Button
-                  asChild
-                  className="bg-blue-600 hover:bg-blue-700 w-full"
-                >
-                  <a
-                    href={ctaPhone.href}
-                    className="flex items-center justify-center gap-2"
-                  >
-                    <Phone className="h-4 w-4" aria-hidden="true" />
-                    Call Dr. Jan: {ctaPhone.display}
-                  </a>
-                </Button>
-              </div>
+      {isMobileMenuOpen ? (
+        <div className="lg:hidden border-t border-slate-200 bg-white max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="py-3 px-2 text-slate-800 font-medium border-b border-slate-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-4">
+              <CtaButtons variant="onLight" />
             </div>
           </nav>
-        )}
-      </div>
-      <LocalTrustBar />
+        </div>
+      ) : null}
     </header>
   );
 }

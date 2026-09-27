@@ -77,7 +77,35 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
 
 export async function POST(request: NextRequest) {
   try {
-    const data: LeadCaptureRequest = await request.json();
+    let data: LeadCaptureRequest;
+    try {
+      const raw = await request.text();
+      if (!raw.trim()) {
+        return NextResponse.json(
+          { error: "Request body required" },
+          { status: 400 },
+        );
+      }
+      data = JSON.parse(raw) as LeadCaptureRequest;
+      if (!data || Object.keys(data).length === 0) {
+        return NextResponse.json(
+          { error: "Request body required" },
+          { status: 400 },
+        );
+      }
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+
+    const apiKey =
+      process.env.FOLLOW_UP_BOSS_API_KEY || process.env.FUB_API_KEY || "";
+    if (!apiKey) {
+      console.error("[Lead Capture] Missing FOLLOW_UP_BOSS_API_KEY / FUB_API_KEY");
+      return NextResponse.json(
+        { error: "Lead capture is not configured" },
+        { status: 503 },
+      );
+    }
 
     // Check rate limit (5 submissions per hour per IP)
     const clientId = getClientId(request);
@@ -132,9 +160,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize FUB client
     const fub = new FollowUpBossClient({
-      apiKey: process.env.FUB_API_KEY || '',
+      apiKey,
       systemKey: process.env.FUB_SYSTEM_KEY,
     });
 
@@ -151,7 +178,7 @@ export async function POST(request: NextRequest) {
       name: data.name || `${data.firstName || ''} ${data.lastName || ''}`.trim(),
       emails: data.email ? [{ value: data.email }] : undefined,
       phones: data.phone ? [{ value: data.phone }] : undefined,
-      source: enrichSource(data.source, request),
+      source: enrichSource(data.source ?? "heartlandlasvegas.com", request),
       stage: data.stage || 'New Lead',
       customFields: {
         ...data.customFields,
@@ -267,7 +294,7 @@ function enrichSource(source: string | undefined, request: NextRequest): string 
   if (referrer) {
     try {
       const refUrl = new URL(referrer);
-      if (!refUrl.hostname.includes('heyberkshire.com')) {
+      if (!refUrl.hostname.includes("heartlandlasvegas.com")) {
         return `referral/${refUrl.hostname}`;
       }
     } catch (e) {
@@ -275,7 +302,7 @@ function enrichSource(source: string | undefined, request: NextRequest): string 
     }
   }
 
-  return source || 'website/direct';
+  return source || "heartlandlasvegas.com";
 }
 
 /**

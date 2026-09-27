@@ -16,6 +16,8 @@ export default defineConfig({
       "middleware/claude-rate-limit.test.ts",
       "lib/fub/client.test.ts",
       "app/api/leads/capture/route.test.ts",
+      "tests/leftover-chassis.test.ts",
+      "tests/leftover-bands.test.ts",
     ],
     coverage: {
       provider: "v8",

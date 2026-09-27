@@ -33,7 +33,7 @@ export default function ExpertQuote({ path }: ExpertQuoteProps) {
         </cite>
       </blockquote>
       <p className="text-sm text-slate-600 mb-6 text-center">
-        {nap.brokerage} · {nap.fullAddress} · Call or text {ctaPhone.display}.
+        {nap.brokerage} · {nap.fullAddress}.
       </p>
       <CtaActions variant="onLight" />
     </section>

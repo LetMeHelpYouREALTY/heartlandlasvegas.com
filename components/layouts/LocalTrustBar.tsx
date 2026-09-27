@@ -1,11 +1,6 @@
-import { Phone, Navigation, Star, Clock } from "lucide-react";
-import {
-  ctaPhone,
-  nap,
-  hoursSummary,
-  maps,
-  googleReviewsUrl,
-} from "@/lib/contact";
+import { Phone, Navigation, Clock } from "lucide-react";
+import Link from "next/link";
+import { ctaPhone, nap, hoursSummary, maps } from "@/lib/contact";
 
 export default function LocalTrustBar() {
   return (
@@ -21,13 +16,22 @@ export default function LocalTrustBar() {
             <Clock className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
             {hoursSummary}
           </span>
-          <a
-            href={ctaPhone.href}
-            className="inline-flex items-center font-semibold text-white hover:text-blue-200"
-          >
-            <Phone className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
-            Call {ctaPhone.display}
-          </a>
+          {ctaPhone ? (
+            <a
+              href={ctaPhone.href}
+              className="inline-flex items-center font-semibold text-white hover:text-blue-200"
+            >
+              <Phone className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
+              Call {ctaPhone.display}
+            </a>
+          ) : (
+            <Link
+              href="/contact"
+              className="inline-flex items-center font-semibold text-white hover:text-blue-200"
+            >
+              Contact form
+            </Link>
+          )}
           <a
             href={maps.directionsUrl}
             target="_blank"
@@ -36,15 +40,6 @@ export default function LocalTrustBar() {
           >
             <Navigation className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
             Directions
-          </a>
-          <a
-            href={googleReviewsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center hover:text-blue-200"
-          >
-            <Star className="h-3.5 w-3.5 mr-1" aria-hidden="true" />
-            Google Reviews
           </a>
         </div>
       </div>

@@ -32,10 +32,10 @@ const nextConfig = {
         has: [
           {
             type: "host",
-            value: "heyberkshire.com",
+            value: "heartlandlasvegas.com",
           },
         ],
-        destination: "https://www.heyberkshire.com/:path*",
+        destination: "https://www.heartlandlasvegas.com/:path*",
         permanent: true,
       },
     ];

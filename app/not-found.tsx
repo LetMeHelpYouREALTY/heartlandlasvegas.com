@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ctaPhone } from "@/lib/contact";
 
 export default function NotFound() {
   return (
@@ -10,15 +9,15 @@ export default function NotFound() {
           Page Not Found
         </h1>
         <p className="text-slate-600 mb-8">
-          That URL is not on heyberkshire.com. Search live listings or call Dr.
-          Jan Duffy.
+          That page is not on heartlandlasvegas.com. Search listings or send a
+          message to Dr. Jan Duffy.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/listings"
             className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold"
           >
-            Search Las Vegas Homes
+            Search homes
           </Link>
           <Link
             href="/contact"
@@ -26,12 +25,6 @@ export default function NotFound() {
           >
             Contact Dr. Jan
           </Link>
-          <a
-            href={ctaPhone.href}
-            className="inline-flex items-center justify-center border border-slate-300 text-slate-800 px-6 py-3 rounded-md font-semibold hover:bg-slate-50"
-          >
-            Call {ctaPhone.display}
-          </a>
         </div>
       </div>
     </main>

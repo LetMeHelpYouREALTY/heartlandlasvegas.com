@@ -1,10 +1,24 @@
 /**
- * Single source of truth for NAP, phones, hours, maps, and social.
- * CTA line: (702) 222-1964 — client-facing call buttons.
- * Office/GBP NAP: (702) 500-1942 — footer schema and Google Business match.
+ * NAP, site URL, and contact CTAs for heartlandlasvegas.com.
+ * No client phone on this site until a tracking number is assigned.
  */
 
-const HEYBERKSHIRE_FALLBACK = "https://heyberkshire.com";
+export const SITE_PHONE: string | null = null;
+
+const CANONICAL_ORIGIN = "https://www.heartlandlasvegas.com";
+
+function buildCtaPhone(phone: string | null) {
+  if (!phone) return null;
+  const digits = phone.replace(/\D/g, "");
+  return {
+    display: phone,
+    displayShort: digits,
+    tel: digits,
+    href: `tel:${digits}`,
+  } as const;
+}
+
+export const ctaPhone = buildCtaPhone(SITE_PHONE);
 
 export function normalizeHostname(hostname: string): string {
   return hostname
@@ -13,37 +27,15 @@ export function normalizeHostname(hostname: string): string {
     .toLowerCase();
 }
 
-/** Site origin for canonical/og:url — request host first; env for local/preview; heyberkshire fallback last. */
-export function resolveSiteUrl(hostname?: string | null): string {
-  const clean = normalizeHostname(hostname ?? "");
-
-  if (clean && clean !== "localhost" && !clean.endsWith(".vercel.app")) {
-    return `https://${clean}`;
-  }
-
+/** Canonical origin — always www for production. */
+export function resolveSiteUrl(_hostname?: string | null): string {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
   if (fromEnv) return fromEnv;
-
-  return HEYBERKSHIRE_FALLBACK;
+  return CANONICAL_ORIGIN;
 }
 
-/** Build-time default for sitemap/robots; set NEXT_PUBLIC_SITE_URL on each Vercel project. */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? HEYBERKSHIRE_FALLBACK;
-
-export const ctaPhone = {
-  display: "(702) 222-1964",
-  displayShort: "702-222-1964",
-  tel: "+17022221964",
-  href: "tel:+17022221964",
-} as const;
-
-export const officePhone = {
-  display: "(702) 500-1942",
-  displayShort: "702-500-1942",
-  tel: "+17025001942",
-  href: "tel:+17025001942",
-} as const;
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? CANONICAL_ORIGIN;
 
 export const nap = {
   name: "Dr. Jan Duffy - Berkshire Hathaway HomeServices Nevada Properties",
@@ -60,7 +52,6 @@ export const nap = {
 } as const;
 
 export const geo = {
-  /** Matches GBP pin */
   latitude: 36.1941,
   longitude: -115.2678,
 } as const;
@@ -136,3 +127,5 @@ export const realscout = {
 export const calendly = {
   showingUrl: "https://calendly.com/drjanduffy/showing",
 } as const;
+
+export const LEAD_SOURCE = "heartlandlasvegas.com";

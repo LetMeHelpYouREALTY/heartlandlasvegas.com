@@ -41,7 +41,7 @@ export default function NamedCampuses({ path }: NamedCampusesProps) {
           >
             CCSD Zoning Search
           </a>
-          . Call or text {ctaPhone.display} and we will map drive time from{" "}
+          . {ctaPhone ? `Call or text ${ctaPhone.display}` : "Use the contact form"} and we will map drive time from{" "}
           {nap.fullAddress}.
         </p>
       </div>

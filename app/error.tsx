@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { ctaPhone } from "@/lib/contact";
 
 export default function Error({
   error,
@@ -22,8 +21,8 @@ export default function Error({
           Something Went Wrong
         </h1>
         <p className="text-slate-600 mb-8">
-          Refresh the page, or call Dr. Jan Duffy at {ctaPhone.display} and we
-          will help you directly.
+          Refresh the page or use the contact form and we will help you
+          directly.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
@@ -39,12 +38,12 @@ export default function Error({
           >
             Back to Home
           </Link>
-          <a
-            href={ctaPhone.href}
+          <Link
+            href="/contact"
             className="inline-flex items-center justify-center border border-slate-300 text-slate-800 px-6 py-3 rounded-md font-semibold hover:bg-slate-50"
           >
-            Call {ctaPhone.display}
-          </a>
+            Contact
+          </Link>
         </div>
       </div>
     </main>

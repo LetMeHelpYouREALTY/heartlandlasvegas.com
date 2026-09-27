@@ -58,7 +58,7 @@ export default function NeighborhoodCommute({
         </div>
         <p className="text-slate-600 text-sm">
           These are typical ranges already published for this village, not a
-          live ETA. Call or text {ctaPhone.display} and we will re-time the
+          live ETA. {ctaPhone ? `Call or text ${ctaPhone.display}` : "Use the contact form"} and we will re-time the
           listing street from {nap.fullAddress} before we leave.
         </p>
       </div>

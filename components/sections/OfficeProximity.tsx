@@ -1,9 +1,9 @@
+import Link from "next/link";
 import {
   ctaPhone,
   googleReviewsUrl,
   maps,
   nap,
-  officePhone,
 } from "@/lib/contact";
 
 type PlaceDrive = {
@@ -259,17 +259,25 @@ export default function OfficeProximity({ path }: OfficeProximityProps) {
         {row.note}
       </p>
       <p className="text-sm text-slate-600 mb-4">
-        Office (matches Google Business): {officePhone.display}. Call or text{" "}
-        {ctaPhone.display}. Hours: Mon–Fri 9am–6pm, Sat 10am–4pm, Sunday by
-        appointment.
+        Office: {nap.fullAddress}. Hours: Mon–Fri 9am–6pm, Sat 10am–4pm, Sunday by
+        appointment. {ctaPhone ? `Call or text ${ctaPhone.display}.` : "Use the contact form or Calendly."}
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
-        <a
-          href={ctaPhone.href}
-          className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700"
-        >
-          Call {ctaPhone.display}
-        </a>
+        {ctaPhone ? (
+          <a
+            href={ctaPhone.href}
+            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700"
+          >
+            Call {ctaPhone.display}
+          </a>
+        ) : (
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700"
+          >
+            Contact
+          </Link>
+        )}
         <a
           href={maps.directionsUrl}
           target="_blank"

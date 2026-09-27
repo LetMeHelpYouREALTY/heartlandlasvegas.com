@@ -12,7 +12,7 @@ export default function InnerPageChrome({
   return (
     <>
       {!isHome && <AutoBreadcrumbs pathname={pathname} />}
-      {children}
+      <div className={isHome ? undefined : "pt-24"}>{children}</div>
     </>
   );
 }

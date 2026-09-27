@@ -42,7 +42,7 @@ export default function VillageDetails({
         ))}
       </div>
       <p className="text-slate-600 text-sm mt-4">
-        {nap.brokerage} · {nap.fullAddress} · Call or text {ctaPhone.display}.
+        {nap.brokerage} · {nap.fullAddress}.
       </p>
     </div>
   );

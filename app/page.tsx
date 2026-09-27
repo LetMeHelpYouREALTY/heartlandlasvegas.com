@@ -1,214 +1,123 @@
-import RealScoutListings from "@/components/realscout/RealScoutListings";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import ReviewsSection from "@/components/sections/ReviewsSection";
-import SupportFaqs from "@/components/sections/SupportFaqs";
-import ExpertQuote from "@/components/sections/ExpertQuote";
-import CtaActions from "@/components/sections/CtaActions";
-import OfficeProximity from "@/components/sections/OfficeProximity";
-import UniqueInterior from "@/components/sections/UniqueInterior";
-import HeadingPhoto from "@/components/sections/HeadingPhoto";
-import LeftoverBand from "@/components/sections/LeftoverBand";
-import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
 import { pageMetadata } from "@/lib/seo";
-import { getPageDomainConfig } from "@/lib/get-domain-config";
-import { ctaPhone, nap } from "@/lib/contact";
-import { marketStats as stats } from "@/lib/site-config";
+import { heartlandSite, floorPlans } from "@/lib/heartland-site";
+import CtaButtons from "@/components/heartland/CtaButtons";
+import RealScoutEmbed from "@/components/heartland/RealScoutEmbed";
+import SisterLinks from "@/components/heartland/SisterLinks";
+import MlsDisclaimer from "@/components/shared/MlsDisclaimer";
 import { mediaUrl, photos } from "@/lib/media";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const config = await getPageDomainConfig();
-  const hostname = headers().get("x-domain");
-  return pageMetadata({
-    path: "/",
-    hostname,
-    title: `${config.neighborhood} Real Estate | Dr. Jan Duffy, REALTOR®`,
-    description: config.description,
-    keywords: config.keywords,
-  });
-}
+export const metadata: Metadata = pageMetadata({
+  path: "/",
+  title: heartlandSite.title,
+  description: heartlandSite.metaDescription,
+  keywords: [...heartlandSite.keywords],
+});
 
-export default async function Home() {
-  const config = await getPageDomainConfig();
-
+export default function HomePage() {
   return (
     <main id="main-content">
       <section className="relative bg-slate-900 text-white py-24 md:py-32 overflow-hidden">
         <Image
           src={mediaUrl(photos.homeHero.src)}
-          alt={photos.homeHero.alt}
+          alt="New construction homes in the North Las Vegas area"
           fill
           priority
           className="object-cover opacity-30"
           sizes="100vw"
         />
         <div className="relative z-10 container mx-auto px-4 text-center">
-          {config.ctaBadge && (
-            <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full mb-6">
-              {config.ctaBadge}
-            </span>
-          )}
+          <span className="inline-block bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full mb-6">
+            D.R. Horton Heartland Cottages
+          </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            {config.heroHeadline}
+            {heartlandSite.h1}
           </h1>
           <p className="text-xl md:text-2xl text-white/80 mb-10 max-w-3xl mx-auto">
-            {config.heroSubheadline}
+            {heartlandSite.heroSubheadline}
           </p>
-
-          <div className="mb-8 flex justify-center">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<realscout-simple-search agent-encoded-id="${config.realscoutAgentId}"></realscout-simple-search>`,
-              }}
-            />
+          <div className="mb-8 flex justify-center max-w-xl mx-auto">
+            <RealScoutEmbed widget="simple-search" className="w-full" />
           </div>
-
-          <div className="flex flex-wrap justify-center gap-6 text-white/80 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-white tabular-nums">
-                500+
-              </span>
-              <span>Transactions Closed</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-white">Since 2008</span>
-              <span>Las Vegas Experience</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-white tabular-nums">
-                4.9★
-              </span>
-              <span>Client Rating</span>
-            </div>
-          </div>
-          <div className="mt-8">
-            <CtaActions variant="onDark" />
-          </div>
+          <CtaButtons />
         </div>
       </section>
-      <div className="container mx-auto px-4">
-        <OfficeProximity path="/" />
-        <UniqueInterior path="/" />
-        <ExpertQuote path="/" />
-      </div>
 
-      <section className="py-16 md:py-20 bg-white" data-home-compare="/">
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-center">
-            What we compare first: Summerlin villages vs Henderson parks
+          <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">
+            Compare the 1550, 1700, and 1865 Cottages plans
           </h2>
-          <HeadingPhoto path="/" level="h2" photo={photos.summerlin} priority />
-          <p className="text-lg text-slate-600 mb-8 text-center">
-            Same west-valley start at 9406 W Lake Mead Blvd, Suite 100. We pick
-            two contrasting pins so you are not averaging the whole valley.
+          <p className="text-lg text-slate-600 mb-10 text-center">
+            Heartland Cottages focuses on two-story Express Series® plans from
+            about 1,550 to 1,865 sq. ft. Walk the models, then decide which
+            layout fits storage, bedroom count, and garage needs.
           </p>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="rounded-xl border border-slate-200 p-6">
-              <h3 className="font-bold text-lg mb-2">Summerlin (10–15 min)</h3>
-              <p className="text-slate-600 text-sm">
-                Downtown Summerlin retail, The Trails, then Red Rock trailheads
-                on the same clock.
-              </p>
-            </div>
-            <div className="rounded-xl border border-slate-200 p-6">
-              <h3 className="font-bold text-lg mb-2">Henderson (25–35 min)</h3>
-              <p className="text-slate-600 text-sm">
-                Green Valley street trees vs Inspirada rec campus. One east
-                afternoon, not both plus Summerlin.
-              </p>
-            </div>
-            <div className="rounded-xl border border-slate-200 p-6">
-              <h3 className="font-bold text-lg mb-2">
-                Sun City Summerlin (10–15 min)
-              </h3>
-              <p className="text-slate-600 text-sm">
-                Four rec buildings if the brief is 55+. Anthem is a separate
-                Henderson day.
-              </p>
-            </div>
-          </div>
-          <p className="text-sm text-slate-600 mt-8 mb-6 text-center">
-            {nap.brokerage} · {nap.fullAddress} · Call or text{" "}
-            {ctaPhone.display}.
-          </p>
-          <CtaActions variant="onLight" />
-        </div>
-      </section>
-
-      <section className="py-16 bg-slate-900 text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-3">
-              January 2026 valley snapshot — then we apply it to your ZIP
-            </h2>
-            <HeadingPhoto
-              path="/"
-              level="h2"
-              photo={photos.sellers}
-              className="max-w-4xl mx-auto"
-            />
-            <p className="text-slate-400">
-              Current data — updated {stats.lastUpdated}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                value: stats.lasVegas.medianPriceFormatted,
-                label: "Median Price",
-                sub: stats.lasVegas.yearOverYearChange + " YoY",
-              },
-              {
-                value: String(stats.lasVegas.daysOnMarket),
-                label: "Avg Days on Market",
-                sub: "",
-              },
-              {
-                value: stats.lasVegas.activeListings.toLocaleString("en-US"),
-                label: "Active Listings",
-                sub: "",
-              },
-              {
-                value: String(stats.lasVegas.inventoryMonths),
-                label: "Months Inventory",
-                sub: "",
-              },
-            ].map(({ value, label, sub }) => (
-              <div key={label} className="text-center">
-                <div className="text-4xl font-bold text-blue-400 mb-1 tabular-nums">
-                  {value}
-                </div>
-                <div className="text-slate-300 text-sm">{label}</div>
-                {sub && (
-                  <div className="text-green-400 text-xs mt-1 tabular-nums">
-                    {sub}
-                  </div>
-                )}
-              </div>
+            {floorPlans.map((plan) => (
+              <article
+                key={plan.slug}
+                className="rounded-xl border border-slate-200 p-6 flex flex-col"
+              >
+                <h3 className="font-bold text-lg mb-2">{plan.name}</h3>
+                <p className="text-sm text-slate-600 mb-4 flex-1">
+                  {plan.beds} bed · {plan.baths} bath · {plan.sqFt.toLocaleString()}{" "}
+                  sq. ft. (approx.)
+                </p>
+                <Link
+                  href={`/floor-plans#plan-${plan.slug}`}
+                  className="text-blue-700 font-semibold text-sm hover:underline"
+                >
+                  Plan details →
+                </Link>
+              </article>
             ))}
           </div>
-          <div className="text-center mt-8">
+          <div className="mt-10 text-center">
             <Link
-              href="/market-report"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-colors"
+              href="/model-home-tours"
+              className="text-blue-700 font-semibold hover:underline"
             >
-              Full Las Vegas Market Report
+              Model home tour checklist →
             </Link>
           </div>
         </div>
       </section>
 
-      <RealScoutListings />
-      <WhyChooseUs />
-      <LeftoverBand path="/" />
-      <ReviewsSection showHeading={false} />
-      <SupportFaqs path="/" />
-      <LeftoverBand path="/" slot={1} />
-      <p className="sr-only">
-        {nap.name}. {nap.fullAddress}. Call {ctaPhone.display}.
-      </p>
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">
+            North Las Vegas & Tule Springs resale search
+          </h2>
+          <p className="text-center text-slate-600 mb-8 max-w-2xl mx-auto">
+            MLS listings near Heartland Cottages — independent of the builder
+            inventory screen.
+          </p>
+          <RealScoutEmbed widget="listings" />
+          <MlsDisclaimer className="mt-6" />
+        </div>
+      </section>
+
+      <SisterLinks />
+
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="text-2xl font-bold mb-4">Why use your own agent?</h2>
+          <p className="text-slate-600 mb-6">
+            Builder sales teams represent the builder. Dr. Jan Duffy registers
+            you on the first visit so contract review, upgrade credits, and
+            timeline checkpoints stay on your side of the table.
+          </p>
+          <Link
+            href="/new-construction"
+            className="text-blue-700 font-semibold hover:underline"
+          >
+            New-construction buyer process →
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

@@ -12,8 +12,8 @@ export default function CTASection() {
             Ready to Find Your Next Home?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Get expert guidance from Dr. Jan Duffy. Call or text{" "}
-            {ctaPhone.display} — she answers her own phone.
+            Get expert guidance from Dr. Jan Duffy on Heartland Cottages tours
+            and North Las Vegas resale search.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -38,17 +38,19 @@ export default function CTASection() {
                 Send a Message
               </Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10"
-            >
-              <a href={ctaPhone.href} className="flex items-center gap-2">
-                <Phone className="h-5 w-5" aria-hidden="true" />
-                Call {ctaPhone.display}
-              </a>
-            </Button>
+            {ctaPhone ? (
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10"
+              >
+                <a href={ctaPhone.href} className="flex items-center gap-2">
+                  <Phone className="h-5 w-5" aria-hidden="true" />
+                  Call {ctaPhone.display}
+                </a>
+              </Button>
+            ) : null}
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-blue-100 text-sm">
