@@ -1,0 +1,225 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  /* Professional Color Palette - Expertise, Authority, Trust */
+  --navy-primary: #1a365d;      /* Deep navy - authority, trust */
+  --navy-dark: #0f2439;         /* Darker navy - sophistication */
+  --navy-light: #2c5282;        /* Lighter navy - approachability */
+  --gold-primary: #d4af37;       /* Premium gold - expertise */
+  --gold-light: #f4d03f;        /* Light gold - highlights */
+  --gray-professional: #4a5568; /* Professional gray */
+  --gray-light: #f7fafc;        /* Light background */
+  --gray-medium: #e2e8f0;       /* Medium gray */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ShowingNew Widget Styles */
+#widget-box {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 2026 luxury: deep navy, warm gold accents */
+#pro-search-box-widget #home-search-form {
+  font-family: 'Muli', sans-serif;
+  color: #fff;
+  background: #0f2439;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+#pro-search-box-widget #titleText {
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+#pro-search-box-widget .homes-type-field {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+#pro-search-box-widget .homes-type-field--input {
+  margin-right: 5px;
+}
+
+#pro-search-box-widget .homes-type-field--label {
+  color: #fff;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+#pro-search-box-widget .homes-type-field--link {
+  color: #c9a227;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+#pro-search-box-widget .homes-type-field--link:hover {
+  color: #d4af37;
+  text-decoration: underline;
+}
+
+#pro-search-box-widget .homes-type-field--link--svg {
+  width: 16px;
+  height: 16px;
+}
+
+#pro-search-box-widget .search-field {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#pro-search-box-widget #SearchTextWidget {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #ccdbe4;
+  font-size: 16px;
+}
+
+/* Luxury real estate: navy + gold — WCAG AA: white on #142d47 ≥4.5:1 */
+#pro-search-box-widget #HomeSearchBtnWidget {
+  background-color: #142d47;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+#pro-search-box-widget #HomeSearchBtnWidget:hover {
+  background-color: #0f2439;
+}
+
+#pro-search-box-widget #home-search-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+#pro-search-box-widget #home-search-options select {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccdbe4;
+  background: #fff;
+  color: #333;
+}
+
+/* Hide "Powered by" if desired */
+.powered-by {
+  display: none;
+}
+
+/* Mobile CSS for MLS iframe sections */
+@media (max-width: 768px) {
+  #available-homes iframe,
+  #homes-preview iframe {
+    height: 500px !important;
+  }
+  
+  #available-homes div[style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Enhanced button and dropdown animations */
+@layer utilities {
+  /* Smooth dropdown animations */
+  .dropdown-enter {
+    animation: dropdownEnter 200ms ease-out forwards;
+  }
+
+  .dropdown-exit {
+    animation: dropdownExit 200ms ease-out forwards;
+  }
+
+  @keyframes dropdownEnter {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes dropdownExit {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Prevent layout shift on button hover */
+  button,
+  a[role="button"] {
+    transform-origin: center;
+  }
+
+  /* Smooth mobile menu transitions */
+  .mobile-menu-enter {
+    animation: slideInRight 300ms ease-out forwards;
+  }
+
+  .mobile-menu-exit {
+    animation: slideOutRight 300ms ease-out forwards;
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideOutRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+}
