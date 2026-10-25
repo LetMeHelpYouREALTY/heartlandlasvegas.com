@@ -40,7 +40,10 @@ export async function generateMetadata(): Promise<Metadata> {
       title: heartlandSite.title,
       description: heartlandSite.metaDescription,
       images: [
-        { url: absoluteUrl(photos.homeHero.src, domain), alt: photos.homeHero.alt },
+        {
+          url: absoluteUrl(photos.homeHero.src, domain),
+          alt: photos.homeHero.alt,
+        },
       ],
     },
     twitter: {
