@@ -17,7 +17,6 @@ import {
   generateHeartlandWebSiteSchema,
 } from "@/lib/heartland-schema";
 import { Analytics } from "@vercel/analytics/react";
-import WidgetTracker from './widget-tracker'
 
 export async function generateMetadata(): Promise<Metadata> {
   const domain = (await headers()).get("x-domain") || "";
@@ -101,7 +100,6 @@ export default function RootLayout({
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="afterInteractive"
         />
-        <WidgetTracker />
       </body>
     </html>
   );
