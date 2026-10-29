@@ -19,8 +19,8 @@ import {
 import { Analytics } from "@vercel/analytics/react";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const domain = headers().get("x-domain") || "";
-  const pathname = headers().get("x-pathname") || "/";
+  const domain = (await headers()).get("x-domain") || "";
+  const pathname = (await headers()).get("x-pathname") || "/";
   const siteUrl = resolveSiteUrl(domain);
   const canonical = absoluteUrl(pathname, domain);
   return {
@@ -40,7 +40,10 @@ export async function generateMetadata(): Promise<Metadata> {
       title: heartlandSite.title,
       description: heartlandSite.metaDescription,
       images: [
-        { url: absoluteUrl(photos.homeHero.src, domain), alt: photos.homeHero.alt },
+        {
+          url: absoluteUrl(photos.homeHero.src, domain),
+          alt: photos.homeHero.alt,
+        },
       ],
     },
     twitter: {
