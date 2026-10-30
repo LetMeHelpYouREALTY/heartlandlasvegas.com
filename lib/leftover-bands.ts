@@ -265,8 +265,8 @@ export const leftoverBands: Record<string, LeftoverCopy[]> = {
           note: "Hours: Mon–Fri 9am–6pm, Sat 10am–4pm, Sunday by appointment.",
         },
         {
-          name: "License S.0197614.LLC",
-          note: "Dr. Jan Duffy, BHHS Nevada Properties. Showing access questions stay at this pin.",
+          name: "Licensed since 2008",
+          note: "Dr. Jan Duffy, REALTOR®. Showing access questions stay at this pin.",
         },
       ],
     },

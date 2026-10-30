@@ -49,7 +49,7 @@ export default function CtaButtons({
         </a>
       </div>
       <p className={`mt-6 text-center text-sm ${napClass}`}>
-        {nap.brokerage} · {nap.fullAddress}
+        {nap.shortName} · {nap.fullAddress}
         {ctaPhone ? ` · Call ${ctaPhone.display}` : ""}
       </p>
     </div>

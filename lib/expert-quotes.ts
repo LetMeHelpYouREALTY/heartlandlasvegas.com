@@ -139,7 +139,7 @@ export const expertQuotes: Record<string, ExpertQuoteCopy> = {
   "/security-policy": {
     h2: "Showing access stays at Suite 100, not unsecured email",
     quote:
-      "We do not collect listing keys by open email. Data and lockbox questions are handled at 9406 W Lake Mead Blvd. Use the contact form at /contact. License S.0197614.LLC.",
+      "We do not collect listing keys by open email. Data and lockbox questions are handled at 9406 W Lake Mead Blvd. Use the contact form at /contact.",
   },
   "/listings": {
     h2: "Save the RealScout results, then we sequence the tour",
