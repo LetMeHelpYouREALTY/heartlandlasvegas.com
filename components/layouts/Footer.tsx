@@ -30,15 +30,17 @@ export default function Footer() {
             <h2 className="font-bold text-xl mb-4">{nap.shortName}</h2>
             <p className="text-slate-300 mb-4 text-sm">
               Independent buyer guidance for D.R. Horton Heartland Cottages at
-              Tule Springs and North Las Vegas resale search. License{" "}
-              {nap.license}.
+              Tule Springs and North Las Vegas resale search.
             </p>
             <address className="not-italic text-slate-300 text-sm mb-4">
               {nap.street}
               <br />
               {nap.city}, {nap.state} {nap.zip}
             </address>
-            <p className="text-slate-400 text-xs">{nap.brokerage}</p>
+            <p className="text-slate-400 text-xs">
+              Berkshire Hathaway HomeServices Nevada Properties since September
+              2008 · License S.0197614.LLC
+            </p>
           </div>
 
           <div>
@@ -155,8 +157,7 @@ export default function Footer() {
 
         <div className="mt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-slate-500">
           <p>
-            © {currentYear} {nap.shortName}. {nap.brokerage}. All rights
-            reserved.
+            © {currentYear} {nap.shortName}. All rights reserved.
           </p>
           <p>
             <Link href="/security-policy" className="hover:text-slate-300">

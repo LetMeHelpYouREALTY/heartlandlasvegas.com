@@ -22,7 +22,7 @@ export default function FaqHub() {
         </section>
       ))}
       <p className="text-sm text-slate-600 mt-8 mb-6 text-center">
-        {nap.brokerage} · {nap.fullAddress}.
+        {nap.shortName} · {nap.fullAddress}.
       </p>
       <CtaActions variant="onLight" />
     </div>

@@ -33,7 +33,7 @@ export default function NeighborhoodAmenities({
           ))}
         </ul>
         <p className="text-slate-600 text-sm">
-          {nap.brokerage} · {nap.fullAddress}.
+          {nap.shortName} · {nap.fullAddress}.
         </p>
       </div>
     </div>

@@ -254,8 +254,7 @@ export default function OfficeProximity({ path }: OfficeProximityProps) {
         Drive time from {nap.street} to {row.place}
       </h2>
       <p className="text-slate-700 mb-4">
-        Showings start from Berkshire Hathaway HomeServices Nevada Properties at{" "}
-        {nap.fullAddress}. Typical drive to {row.place} is {row.driveMinutes}.{" "}
+        Showings start from {nap.fullAddress}. Typical drive to {row.place} is {row.driveMinutes}.{" "}
         {row.note}
       </p>
       <p className="text-sm text-slate-600 mb-4">

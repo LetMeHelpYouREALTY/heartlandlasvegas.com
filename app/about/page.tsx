@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/about",
   title: `About Dr. Jan Duffy | Heartland Cottages Agent`,
   description:
-    "Dr. Jan Duffy, Nevada REALTOR® S.0197614.LLC with Berkshire Hathaway HomeServices Nevada Properties — Heartland Cottages buyer specialist.",
+    "Dr. Jan Duffy, Nevada REALTOR® licensed since 2008 — Heartland Cottages buyer specialist.",
   keywords: [...heartlandSite.keywords],
 });
 
@@ -33,8 +33,8 @@ export default function AboutPage() {
               About Dr. Jan Duffy
             </h1>
             <p className="text-lg text-slate-600 mb-4">
-              Dr. Jan Duffy is a Nevada REALTOR® (license {nap.license}) with{" "}
-              {nap.brokerage}. She built this site for buyers comparing D.R.
+              Dr. Jan Duffy is a Nevada REALTOR® licensed since 2008 · 35 years in
+              Las Vegas. She built this site for buyers comparing D.R.
               Horton Heartland Cottages plans — not as a builder sales portal.
             </p>
             <p className="text-slate-600 mb-4">

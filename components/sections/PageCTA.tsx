@@ -22,7 +22,7 @@ export default function PageCTA({
         </p>
         <CtaActions variant="onDark" />
         <p className="mt-6 text-blue-200 text-sm">
-          {nap.shortName} | License {nap.license} | {nap.brokerage}
+          {nap.shortName} | Licensed since 2008 · 35 years in Las Vegas
         </p>
         <p className="mt-2 text-blue-200 text-sm">{nap.fullAddress}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">

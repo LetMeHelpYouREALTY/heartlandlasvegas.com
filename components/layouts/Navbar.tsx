@@ -42,7 +42,7 @@ export default function Navbar() {
               Heartland Cottages
             </span>
             <span className="text-xs text-slate-600 truncate">
-              Dr. Jan Duffy · {nap.license}
+              Dr. Jan Duffy · Licensed since 2008
             </span>
           </Link>
 
