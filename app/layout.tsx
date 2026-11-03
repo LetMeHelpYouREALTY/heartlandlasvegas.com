@@ -17,6 +17,7 @@ import {
   generateHeartlandWebSiteSchema,
 } from "@/lib/heartland-schema";
 import { Analytics } from "@vercel/analytics/react";
+import RealtorAnalytics from "../components/analytics/RealtorAnalytics";
 
 export async function generateMetadata(): Promise<Metadata> {
   const domain = (await headers()).get("x-domain") || "";
@@ -100,6 +101,7 @@ export default function RootLayout({
           src="https://assets.calendly.com/assets/external/widget.js"
           strategy="afterInteractive"
         />
+        <RealtorAnalytics siteName="heartlandlasvegas.com" />
       </body>
     </html>
   );
